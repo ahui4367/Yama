@@ -159,5 +159,32 @@ namespace Courseware.Service.Impl
                 repo.Remove(new Quiz_T { Qid = model.QuizID });
             }
         }
+
+        public override CourseModel LoadCourse(int course_id)
+        {
+            using (var repo = DbFactory.Create<Course_T>())
+            {
+                var item = repo.GetFiltered("cid=" + course_id).FirstOrDefault();
+                if (item != null && item.Cid > 0)
+                {
+                    return new CourseModel
+                    {
+                        Cid = item.Cid,
+                        CourseName = item.Cname,
+                        Category = item.Category,
+                        Limit = item.Limit,
+                        Media = item.Media,
+                        Type = item.Type,
+                        Rank = item.Rank,
+                        Created = item.Created.ToString("yyyy-MM-dd"),
+                        Lastmodified = item.Lastmodified.ToString("yyyy-MM-dd")
+                    };
+                }
+                else
+                {
+                    return new CourseModel();
+                }
+            }
+        }
     }
 }

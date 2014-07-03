@@ -45,15 +45,15 @@
     <div id="menubar" style="padding: 5px; height: auto">
         <div style="margin-bottom: 3px">
             <a href="#" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="addCourse()">添加课件</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modUser()">修改用户</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delUser()">删除用户</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modCourse()">修改课件</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delCourse()">删除课件</a>
         </div>
     </div>
     <table id="tab" class="easyui-datagrid" title="用户列表" style="width:1000px; min-height:500px"
         iconcls="icon-filter" data-options="rownumbers:true,singleSelect:true,pagination:true,url:'@Url.Content("~/course/list")',method:'get',toolbar:'#menubar'">
         <thead>
             <tr>
-                <th field="CourseName" width="80">课件名称</th>
+                <th field="CourseName" width="380">课件名称</th>
                 <th field="Type" width="100">课件种类</th>
                 <th field="Limit" width="80">限时</th>
                 <th field="Created" width="150">创建时间</th>

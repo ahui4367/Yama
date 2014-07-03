@@ -29,7 +29,7 @@ namespace WebSite.Admin.Controllers
             var list = ServiceFacade.CourseSvc.LoadCourses();
             if (list != null && list.Count() > 0)
             {
-                result = list.Skip(paging.Page - 1).Take(paging.Rows);
+                result = list.Skip((paging.Page -1) * paging.Rows).Take(paging.Rows);
             }
 
             return Json(new { total = list.Count(), rows = result.ToArray() }, JsonRequestBehavior.AllowGet);
@@ -38,7 +38,16 @@ namespace WebSite.Admin.Controllers
         // GET: /Course/Edit
         public ActionResult Edit(int? course_id)
         {
-            return View();
+            CourseModel model = null;
+            if (course_id.HasValue && course_id.Value > 0)
+            {
+                model = ServiceFacade.CourseSvc.LoadCourse(course_id.Value);
+            }
+            else
+            {
+                model = new CourseModel { Cid = -1, CourseName = "新课件" };
+            }
+            return View(model);
         }
 
         public ActionResult Save(CourseModel model)

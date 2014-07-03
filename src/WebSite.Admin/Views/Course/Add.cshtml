@@ -1,0 +1,125 @@
+﻿@model View.Model.CourseModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="height: 100%; overflow: hidden">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/easyui")
+    @Styles.Render("~/scripts/uploadify.css")
+    @Styles.Render("~/content/themes/icon.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/easyui")
+    @Scripts.Render("~/Scripts/jquery.easyui.min.js")
+    @Scripts.Render("~/Scripts/jquery.uploadify.min.js")
+    @Scripts.Render("~/Scripts/swfobject.js")
+    @Scripts.Render("~/Scripts/jquery.slides.min.js")
+    @Scripts.Render("~/Scripts/views/addcourse.js")
+    <style type="text/css">
+        #slides {
+          display: none
+        }
+
+        #slides .slidesjs-navigation {
+          margin-top:5px;
+        }
+
+        a.slidesjs-next,
+        a.slidesjs-previous,
+        a.slidesjs-play,
+        a.slidesjs-stop {
+          background-image: url(/images/btns-next-prev.png);
+          background-repeat: no-repeat;
+          display:block;
+          width:12px;
+          height:18px;
+          overflow: hidden;
+          text-indent: -9999px;
+          float: left;
+          margin-right:5px;
+          z-index:999;
+        }
+        .slidesjs-pagination {
+          margin: 7px 0 0;
+          float: right;
+          list-style: none;
+          display:none;
+        }
+
+        .slidesjs-pagination li {
+          float: left;
+          margin: 0 1px;
+        }
+
+        .slidesjs-pagination li a {
+          display: block;
+          width: 13px;
+          height: 0;
+          padding-top: 13px;
+          background-image: url(/images/pagination.png);
+          background-position: 0 0;
+          float: left;
+          overflow: hidden;
+        }
+        a.slidesjs-next {
+          margin-right:10px;
+          background-position: -12px 0;
+          position:absolute;
+          right:20px;
+          top:150px;
+        }
+
+        a:hover.slidesjs-next {
+          background-position: -12px -18px;
+        }
+
+        a.slidesjs-previous {
+          background-position: 0 0;
+          position:absolute;
+          left:0px;
+          top:150px;
+        }
+
+        a:hover.slidesjs-previous {
+          background-position: 0 -18px;
+        }
+    </style>
+</head>
+<body style="margin: 0px 0px; height: 100%; overflow: hidden;padding:0px 0px">
+    <div class="easyui-panel" title="" style="width:784px;height:569px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'south',split:true,title:'课件题目信息',tools:'toolbar_media'" style="height:200px;">
+                <div class="easyui-panel" style="margin-bottom: 3px">
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="addUser()">添加考题</a>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modUser()">修改考题</a>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delUser()">删除考题</a>
+                </div>
+                234324
+            </div>
+            <div data-options="region:'center',title:'课件媒体信息'" style="padding:0px">
+                @*<a href="#" id="uploady-doc" style="float:left"></a>*@
+                <div id="mediarea" style="width:100%;height:100%"></div>
+            </div>
+            <div data-options="region:'west',split:true,title:'课件信息'," style="width:150px;padding:2px">
+                <label for="cname">课件名称:</label>
+                <input id="cname" name="CourseName" type="text" value="新课件" /><br/><br/>
+                <label for="climit">限时(秒):</label>
+                <input id="climit" name="Limit" type="text" value="60" /><br/><br/>
+                <label for="selType">课件类型:</label>
+                <select id="selType" class="easyui-combobox" name="type">
+                    <option value="ppt文档">PowerPoint文档</option>
+                    <option value="mp4视频">视频(*.mp4)</option>
+                </select><br/>
+                <a href="#" id="uploady-doc" style="float:left"></a><br/><br/>
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+            </div>
+        </div>
+    </div>
+</body>

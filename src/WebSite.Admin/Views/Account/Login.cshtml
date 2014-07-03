@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "知识管理后台";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/easyui")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/easyui")
+    @Scripts.Render("~/scripts/jquery.easyui.min.js")
+    <script type="text/javascript">
+        $(function () {
+            $("#ucap").bind('keyup', function (event) {
+                if (event.keyCode == '13') {
+                    $('#frmLogin').submit();//登录
+                }
+            });
+            setTimeout("$('#ucode').focus()", 1000);
+        });
+
+        function refreshCaptcha() {
+            $('#captcha').attr('src', '@Url.Action("Captcha", "Account")' + '?t=' + new Date());
+        }
+
+        function doSubmit() {
+            if ($('#ucode').val() == '') {
+                $.messager.alert('验证失败', '请输入登录名称!', 'error');
+                setTimeout("$('#ucode').focus()", 1000);
+                return false;
+            }
+            if ($('#upass').val() == '') {
+                $.messager.alert('验证失败', '请输入登录密码!', 'error');
+                setTimeout("$('#upass').focus()", 1000);
+                return false;
+            }
+            if ($('#ucap').val() == '') {
+                $.messager.alert('验证失败', '请输入验证码!', 'error');
+                setTimeout("$('#ucap').focus()", 1000);
+                return false;
+            }
+            $('#frmLogin').submit();
+            return true;
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+    <header style="background-color:white">
+        <img src="@Url.Content("~/Content/img/logo_long.png")" alt="brickcom.cn" />
+    </header>
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "frmLogin" }))
+    {
+    <div style="min-height:600px;background:url('@Url.Content("~/Content/img/bg_login.png")') no-repeat" >
+        <div id="w" class="easyui-window" 
+            data-options="title:'',inline:true,closable:false,maximizable:false,minimizable:false,collapsible:false,resizable:false" 
+            style="width: 450px; height: 330px; padding: 0px">
+            <div class="easyui-layout" data-options="fit:true">
+                <div data-options="region:'north',split:false" style="height:60px;background:url('@Url.Content("~/Content/img/dlg_user.png")') no-repeat"></div>
+                <div data-options="region:'center',split:false" style="height:220px;padding:30px 0px 0px 30px">
+                    <label for="uname">登录名称:</label>
+                    <input class="easyui-validatebox" type="text" name="UserCode" id="ucode" data-options="required:true" style="width:250px" value="@Model.UserCode" /><br /><br />
+                    <label for="upass">登录密码:</label>
+                    <input class="easyui-validatebox" type="password" name="Password" id="upass" data-options="required:true" style="width:250px" value="@Model.Password" /><br /><br />
+                    <label for="upass">&nbsp;&nbsp;&nbsp;验证码:</label>
+                    <input class="easyui-validatebox" type="text" name="Captcha" id="ucap" data-options="required:true" style="width:80px;" value="@Model.Captcha"/><br />
+                    <img id="captcha" src="@Url.Action("Captcha", "Account")" alt="captcha" width="68" height="25" style="margin-top:5px;margin-left:55px"/>
+                    <a href="javascript:refreshCaptcha()">看不清</a>
+                </div>
+                <div data-options="region:'south',split:false" style="height:40px;text-align:center;padding-top:5px;background-color:aliceblue">
+                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doSubmit()">登&nbsp;&nbsp;录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    @if (Model != null && !string.IsNullOrEmpty(Model.Error)) {
+    <script type="text/javascript">
+        $(function () {
+            setTimeout("$.messager.alert('验证失败', '@Model.Error', 'error')", 500);
+        });
+    </script>
+    }
+    <footer style="background:#D2E0F2;margin-top:-15px;border-top:solid 1px #eee;height:35px;vertical-align:middle">
+        <div class="content-wrapper" style="text-align:center">
+            <div class="float-center">
+                <p>&copy; 2014 - 上海博瑞康数字科技有限公司（Brickcom China） </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

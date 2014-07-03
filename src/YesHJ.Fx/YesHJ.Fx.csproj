@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D13BFB2-BC56-4270-BD4D-43B4BD3F4DE7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YesHJ.Fx</RootNamespace>
+    <AssemblyName>YesHJ.Fx</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppEngine.cs" />
+    <Compile Include="Caching\CacheProvider.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\LazyCache.cs" />
+    <Compile Include="Caching\Strategy\LruCacheStrategy.cs" />
+    <Compile Include="Caching\Strategy\RuntimeCacheStrategy.cs" />
+    <Compile Include="Caching\Strategy\SimpleCacheStrategy.cs" />
+    <Compile Include="Caching\Strategy\ThreadSafeCacheStrategy.cs" />
+    <Compile Include="Constant\ContextConstants.cs" />
+    <Compile Include="Error\BaseException.cs" />
+    <Compile Include="Error\Assert.cs" />
+    <Compile Include="Error\ParameterChecker.cs" />
+    <Compile Include="Extension\Expr.Extension.cs" />
+    <Compile Include="Extension\QueryInterpreter.cs" />
+    <Compile Include="Extension\String.Extension.cs" />
+    <Compile Include="EngineContext.cs" />
+    <Compile Include="Mapping\IMapper.cs" />
+    <Compile Include="Mapping\IMapping.cs" />
+    <Compile Include="Net\Client.cs" />
+    <Compile Include="Net\Server.cs" />
+    <Compile Include="Pattern\Publisher.cs" />
+    <Compile Include="Pattern\ServiceLocator.cs" />
+    <Compile Include="Pattern\Singleton.cs" />
+    <Compile Include="Pattern\Subscriber.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ref\RegIOCAttribute.cs" />
+    <Compile Include="Ref\WarmupAttribute.cs" />
+    <Compile Include="SR.cs" />
+    <Compile Include="Util\CryptoHelper.cs" />
+    <Compile Include="Util\DirHelper.cs" />
+    <Compile Include="Util\FileHelper.cs" />
+    <Compile Include="Util\PinYinHelper.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,170 @@
+<#@ template debug="true" hostSpecific="true" #>
+<#@ assembly name="System.Core"#>
+<#@ assembly name="System.Data.Linq"#>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ Assembly Name="System.Data" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.SqlClient"#>
+<#@ import namespace="System.Data"#>
+<#@ include file="MultipleGenerator.ttinclude" #>
+
+<#
+    var generator = Manager.Create(Host, GenerationEnvironment);
+	//TODO:修改connection string
+	string connectionString = "Data Source=.\\sqlexpress;Initial Catalog=brickcom;Persist Security Info=True;User ID=brick;Password=brick"; 
+	//string connectionString = "Data Source=.\\sqlexpress;Initial Catalog=aspnetdb;Integrated Security=True"; 
+
+    List<string> blacklist = new List<string>
+    {
+        //TODO:如果需要忽略表，请在这里添加
+        //"noused_tab", "trash_tab", "xxx"
+        //"aspnet_Membership"
+    };
+
+	SqlConnection conn = new SqlConnection(connectionString);
+    try { 
+	    conn.Open(); 
+    } catch (Exception) {
+        return "";
+    }
+			
+	DataTable schema = conn.GetSchema("Tables");
+			
+	string selectQuery = "select * from  @tableName"; 
+	SqlCommand command = new SqlCommand(selectQuery,conn); 
+	SqlDataAdapter ad = new SqlDataAdapter(command); 
+	System.Data.DataSet ds = new DataSet(); 
+			
+	foreach(System.Data.DataRow row in schema.Rows) 
+	{
+    string tab = Manager.Upcase(row["TABLE_NAME"].ToString());
+	ds.Reset();
+    if (blacklist.Contains(tab)) continue;
+    generator.StartNewFile(tab + ".cs");
+	#>
+namespace DbModel.AspnetDb
+{
+	using System; 
+	//table: <#= tab #>
+	public partial class <#= tab #>
+	{
+        #region Properties
+		<#                 
+		command.CommandText = selectQuery.Replace("@tableName",tab); 
+		ad.FillSchema(ds, SchemaType.Mapped, tab);
+
+		foreach (DataColumn dc in ds.Tables[0].Columns)
+		{
+				#>
+public <#= dc.DataType.Name #> <#= Manager.Upcase(dc.ColumnName) #>  { get; set; }                                        
+				
+		<#    }                 #>
+#endregion Properties
+	}
+}
+			<#    
+generator.EndBlock();
+generator.StartNewFile(tab + ".extension.cs");
+bool extExists = generator.Exists(tab + ".extension.cs");
+if (extExists) {
+    string content = File.ReadAllText(generator.GetRealFile(tab + ".extension.cs"));
+    this.Write(content);
+} else {
+
+#>
+namespace DbModel.AspnetDb
+{
+	using System;
+	using FluentData;
+	using Data.Access.Impl;
+	//table: <#= tab #>
+	public partial class <#= tab #> : Entity
+    {
+        #region Autogen by tools
+        
+        private static readonly string SQLFORMAT_INSERT = 
+        "INSERT INTO <#= tab#>("
+        <#for(int i = 0; i < ds.Tables[0].Columns.Count; i++)
+        {
+            DataColumn dc = ds.Tables[0].Columns[i];
+            if (i == ds.Tables[0].Columns.Count - 1) this.WriteLine("\t\t+ \"" + dc.ColumnName + ")\"");
+            else this.WriteLine("\t\t+ \"" + dc.ColumnName + ",\"");
+            #>
+        <#    }                 #>
++ " Values("
+        <#for(int i = 0; i < ds.Tables[0].Columns.Count; i++)
+        {
+            DataColumn dc = ds.Tables[0].Columns[i];
+            if (i == ds.Tables[0].Columns.Count - 1) this.WriteLine("\t\t+ \"@" + dc.ColumnName + ")\";");
+            else this.WriteLine("\t\t+ \"@" + dc.ColumnName + ",\"");
+            #>
+        <#    }                 #>
+
+        
+		private static readonly string SQLFORMAT_UPDATE =
+        "UPDATE <#= tab#> "
+        <#for(int i = 1; i < ds.Tables[0].Columns.Count; i++)
+        {
+            DataColumn dc = ds.Tables[0].Columns[i];
+            if (i == ds.Tables[0].Columns.Count - 1)
+                this.WriteLine("\t\t+ \"" + dc.ColumnName + " = @" + dc.ColumnName + "\"");
+            else this.WriteLine("\t\t+ \"" + dc.ColumnName + " = @" + dc.ColumnName + ",\"");
+            #>
+        <#    }                 #>
++ " WHERE <#= ds.Tables[0].Columns[0].ColumnName#> = @<#= ds.Tables[0].Columns[0].ColumnName#>";
+        
+        private static readonly string SQLFORMAT_DELETE =
+        "DELETE FROM <#=tab#> WHERE <#=ds.Tables[0].Columns[0].ColumnName#>=@id";
+
+		public override IDbCommand BuildSqlCommand(IDbContext context, BuildBehavior behavior)
+        {
+			string sql = string.Empty;
+			if (BuildBehavior.InsertCommand == behavior)
+				sql = SQLFORMAT_INSERT;
+			else if (BuildBehavior.UpdateCommand == behavior)
+				sql = SQLFORMAT_UPDATE;
+            else if (BuildBehavior.DeleteCommand == behavior)
+            {
+                sql = SQLFORMAT_DELETE;
+                return context.Sql(sql).Parameter("id", <#=Manager.Upcase(ds.Tables[0].Columns[0].ColumnName)#>);
+            }
+			else
+				return null;
+            
+
+            return context.Sql(sql)
+			<#for(int i = 0; i < ds.Tables[0].Columns.Count; i++)
+			{
+				DataColumn dc = ds.Tables[0].Columns[i];
+				if (i == ds.Tables[0].Columns.Count - 1)
+					this.WriteLine("\t\t\t\t\t.Parameter(\"" + dc.ColumnName + "\", " + Manager.Upcase(dc.ColumnName) + ");");
+				else if (i == 0)
+					this.WriteLine("\t\t.Parameter(\"" + dc.ColumnName + "\", " + Manager.Upcase(dc.ColumnName) + ")");
+				else
+					this.WriteLine("\t\t\t\t\t.Parameter(\"" + dc.ColumnName + "\", " + Manager.Upcase(dc.ColumnName) + ")");
+			}
+			#>
+        }
+
+		public override string DbTable
+		{
+			get
+			{
+				return "<#= tab#>";
+			}
+		}
+        #endregion Autogen by tools
+    }
+}
+<#
+}
+generator.EndBlock();
+}
+generator.Process(true);#>
+////////////////////////////////////////
+/// This is db stub file, keep it empty!
+////////////////////////////////////////

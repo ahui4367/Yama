@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F3A5284-ED6D-44A6-862A-23A07C54159D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DbModel</RootNamespace>
+    <AssemblyName>DbModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentData">
+      <HintPath>..\packages\FluentData.3.0.0.0\lib\FluentData.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AspnetDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Module_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Module_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Organ_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Organ_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quiz_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Quiz_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_Module_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_Module_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Score_Detail_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Score_Detail_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Score_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Score_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Role_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Role_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AspnetDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AspnetDb.cs</LastGenOutput>
+    </None>
+    <None Include="MultipleGenerator.ttinclude" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data.Access.Impl\Data.Access.Impl.csproj">
+      <Project>{e12214ad-12f0-4490-a93e-7991b1363dbc}</Project>
+      <Name>Data.Access.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data.Access\Data.Access.csproj">
+      <Project>{989c68f1-a002-4161-b794-b39d2262b00d}</Project>
+      <Name>Data.Access</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetDir)$(TargetFileName) $(SolutionDir)\WebSite\bin</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

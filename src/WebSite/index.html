@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>考试系统</title>
+    <script type="text/javascript" src="Scripts/swfobject.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        function maximize() {
+            $("#stage").width($(document).width());
+            $("#stage").height($(document).height());
+        }
+
+        $(function () {
+            maximize();
+            $(window).resize(function () {
+                maximize();
+            });
+            var flashVars = {};
+            var params = { scale: "exactFit" };
+            params.allowfullscreen = "true";
+            params.wmode = "window";
+            var attributes = {};
+
+            swfobject.embedSWF("flplayer.swf", "main", "100%", "100%", "9.0.0", null, flashVars, params, attributes);
+        });
+    </script>
+</head>
+<body>
+    <div id="stage">
+        <div id="main"></div>
+    </div>
+</body>
+</html>

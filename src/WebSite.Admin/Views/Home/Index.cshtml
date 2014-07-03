@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "知识库管理后台";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/easyui")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/easyui")
+    @Scripts.Render("~/Scripts/jquery.easyui.min.js")
+    @Scripts.Render("~/scripts/views/homeindex.js")
+    <script type="text/javascript">
+        var _menus = {
+            "menus": [
+                {
+                    "menuid": "1", "icon": "icon-sys", "menuname": "人员组织",
+                    "menus": [
+                            { "menuid": "13", "menuname": "用户管理", "icon": "icon-users", "url": "@Url.Content("~/user")" },
+                            { "menuid": "14", "menuname": "角色管理", "icon": "icon-role", "url": "@Url.Content("~/role")" },
+                            { "menuid": "15", "menuname": "组织机构", "icon": "icon-comp", "url": "@Url.Content("~/organ")" },
+                            { "menuid": "16", "menuname": "权限设置", "icon": "icon-set", "url": "demo.html" }
+                    ]
+                }, {
+                    "menuid": "8", "icon": "icon-sys", "menuname": "课件资料",
+                    "menus": [{ "menuid": "21", "menuname": "课件管理", "icon": "icon-nav", "url": "@Url.Content("~/course")" },
+                            { "menuid": "22", "menuname": "添加课件", "icon": "icon-audio", "url": "@Url.Content("~/course/edit")" },
+                            { "menuid": "23", "menuname": "视频管理", "icon": "icon-video", "url": "demo1.html" },
+                            { "menuid": "24", "menuname": "文档管理", "icon": "icon-pdf", "url": "demo1.html" },
+                    ]
+                }, {
+                    "menuid": "28", "icon": "icon-sys", "menuname": "分析统计",
+                    "menus": [{ "menuid": "41", "menuname": "收支分类", "icon": "icon-nav", "url": "demo.html" },
+                            { "menuid": "42", "menuname": "报表统计", "icon": "icon-nav", "url": "demo1.html" },
+                            { "menuid": "43", "menuname": "添加支出", "icon": "icon-nav", "url": "demo2.html" }
+                    ]
+                }, {
+                    "menuid": "39", "icon": "icon-sys", "menuname": "系统功能",
+                    "menus": [{ "menuid": "51", "menuname": "公告管理", "icon": "icon-nav", "url": "demo.html" },
+                            { "menuid": "52", "menuname": "邮件管理", "icon": "icon-nav", "url": "demo1.html" },
+                            { "menuid": "53", "menuname": "报警功能", "icon": "icon-nav", "url": "demo2.html" },
+                            { "menuid": "54", "menuname": "系统日志", "icon": "icon-log", "url": "demo1.html" }
+                    ]
+                }
+            ]
+        };
+    </script>
+</head>
+<body class="easyui-layout" style="overflow-y: hidden; margin: 0px 0px" scroll="no">
+    <noscript>
+        <div style="position: absolute; z-index: 100000; height: 2046px; top: 0px; left: 0px; width: 100%; background: white; text-align: center;">
+            <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+        </div>
+    </noscript>
+    <div region="north" split="true" border="false" style="overflow: hidden; height: 30px; background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%; line-height: 20px; color: #fff; font-family: Verdana, 微软雅黑,黑体">
+        <span style="float: right; padding-right: 20px;" class="head">欢迎 @ViewBag.User.Uname <a href="#" id="editpass">修改密码</a> <a href="@Url.Content("~/account/logoff")" id="loginOut">安全退出</a></span>
+        <span style="padding-left: 10px; font-size: 16px;">
+            <img src="images/blocks.gif" width="20" height="20" align="absmiddle" />
+            知识库管理后台</span>
+    </div>
+    <div region="south" split="true" style="height: 30px; background: #D2E0F2;">
+        <div class="footer">&copy; 2014 - 上海博瑞康数字科技有限公司（Brickcom China）</div>
+    </div>
+    <div region="west" hide="true" split="true" title="导航菜单" style="width: 180px;" id="west">
+        <div id="nav" class="easyui-accordion" fit="true" border="false">
+            <!--  导航内容 -->
+
+        </div>
+
+    </div>
+    <div id="mainPanle" region="center" style="background: #eee; overflow-y: hidden">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false">
+            <div title="欢迎使用" style="padding: 20px; overflow: hidden; color: red;">
+                <h1 style="font-size: 24px;">* 欢迎使用Brickcom.cn知识库管理后台</h1>
+                <h1 style="font-size: 24px;">* BLOG: </h1>
+                <h1 style="font-size: 24px;">* 讨论群：</h1>
+                <h1 style="font-size: 24px;">* 如果发现问题，请联系<a href="#" style="font-size:24px;">管理员</a></h1>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

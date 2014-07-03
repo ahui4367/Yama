@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "注册";
+}
+@model View.Model.UserModel
+
+<h2>注册</h2>
+
+@using(Html.BeginForm("Register", "Home", FormMethod.Post))
+{
+<ul>
+    <li><span>用户名：</span>@Html.TextBoxFor(m => m.UserName)  </li>
+    <li><span>手机号：</span>@Html.TextBoxFor(m => m.Mobile)</li>
+    <li><input type="submit" value="注册" /></li>
+</ul>
+}
+
+<div style="font:bold 14px Microsoft Yahei;color:red">@ViewBag.SubmitMessage</div>

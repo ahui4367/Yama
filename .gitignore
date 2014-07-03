@@ -1,0 +1,23 @@
+#######开放模式############
+
+###############
+#    folder   #
+###############
+/packages/
+[Oo]bj
+[Bb]in
+
+###############
+#  fixed file #
+###############
+.gitignore
+*.exe
+*.pdb
+*.gpState
+*.suo
+*.dll
+*.cache
+* Thumbs.db
+*.csproj.user
+*.log
+*.swp

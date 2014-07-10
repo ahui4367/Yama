@@ -26,12 +26,14 @@ namespace View.Model
 
         public int QuizType { get; set; }
 
+        public string QuizTypeName { get; set; }
+
         public int Seq { get; set; }
 
         public int Answer { get; set; }
 
-        public DateTime Created { get; set; }
+        public string Created { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public string LastModified { get; set; }
     }
 }

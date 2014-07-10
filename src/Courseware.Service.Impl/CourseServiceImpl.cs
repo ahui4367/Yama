@@ -60,10 +60,11 @@ namespace Courseware.Service.Impl
                         Option4 = q.Op4,
                         PageNo = q.Pageno,
                         QuizType = q.Type,
+                        QuizTypeName = q.Type == 0 ? "单选" : "简答",
                         Seq = q.Seq,
                         Answer = q.Answer,
-                        Created = q.Created,
-                        LastModified = q.Lastmodified,
+                        Created = q.Created.ToString("yyyy-MM-dd"),
+                        LastModified = q.Lastmodified.ToString("yyyy-MM-dd"),
                     })
                     .ToList();
             }
@@ -125,6 +126,7 @@ namespace Courseware.Service.Impl
                     repo.Save(new Quiz_T 
                     {
                         Qid = model.QuizID,
+                        Cid = model.CourseID,
                         Quiz = model.Question,
                         Pageno = model.PageNo,
                         Type = model.QuizType,
@@ -139,6 +141,7 @@ namespace Courseware.Service.Impl
                 {
                     repo.Add(new Quiz_T
                     {
+                        Cid = model.CourseID,
                         Quiz = model.Question,
                         Pageno = model.PageNo,
                         Type = model.QuizType,

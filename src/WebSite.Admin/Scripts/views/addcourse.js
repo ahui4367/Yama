@@ -3,28 +3,48 @@ var gcount = 0;
 var url;
 var courseid = -1;
 $(function () {
-    $(function () {
-        $('#uploady-doc').uploadify({
-            uploader: '/course/uploady',
-            swf: '/Scripts/uploadify.swf',
-            width: 100,
-            height: 23,
-            buttonImage: '/Images/btn/btnpdf.png',
-            buttonCursor: 'hand',
-            fileObjName: 'file',
-            fileTypeExts: '*.ppt;*.pptx;*.doc;*.docx;*.pdf;*.mp4;*.flv;',
-            fileTypeDesc: '文档文件',
-            auto: true,
-            multi: false,
-            queueSizeLimit: 1,
-            sizeLimit: 10737418240,
-            onUploadSuccess: function (file, data, response) {
-                var json = eval('(' + data + ')');
-                gfile = String(json.file);
-                setTimeout("doProgress('" + json.file + "')", 200);
-            }
-        });
-    })
+    $('#uploady-doc').uploadify({
+        uploader: '/course/uploady',
+        swf: '/Scripts/uploadify.swf',
+        width: 100,
+        height: 23,
+        buttonImage: '/Images/btn/btnpdf.png',
+        buttonCursor: 'hand',
+        fileObjName: 'file',
+        fileTypeExts: '*.ppt;*.pptx;*.doc;*.docx;*.pdf;*.mp4;*.flv;',
+        fileTypeDesc: '文档文件',
+        auto: true,
+        multi: false,
+        queueSizeLimit: 1,
+        sizeLimit: 10737418240,
+        onUploadSuccess: function (file, data, response) {
+            var json = eval('(' + data + ')');
+            gfile = String(json.file);
+            setTimeout("doProgress('" + json.file + "')", 200);
+        }
+    });
+    var t = 0;
+    var v = $('#hdnType').val();
+    if (v == 'mp4视频') {
+        t = 1;
+        $('#selType').attr('value', 'mp4视频');
+    }
+
+    var id = parseInt($('#hdnCid').val());
+    if (!isNaN(id) && id > 0) {
+        courseid = id;
+        if (t == 0) {
+            gfile = $('#hdnMedia').val();
+            gcount = parseInt($('#hdnRank').val());
+        } else {
+            gfile = $('#hdnMedia').val();
+            gcount = 1;
+        }
+        render(t);
+
+        $('#tab').attr('url', '/quiz/list/' + id);
+        $('#tab').datagrid('load');
+    }
 })
 
 function doProgress(name) {
@@ -167,6 +187,15 @@ function addQuiz() {
         });
         return;
     }
+    $('#pno').combobox('clear');
+    $('#hdnCourseID').val(courseid);
+    if (!isNaN(gcount) && gcount > 0) {
+        
+        for (var i = 0; i < gcount; i++) {
+            $('#pno').append('<option value="' + i + '">第' + i + '页</option>');
+        }
+        //$('#pno').combobox('loadData');
+    }
     $('#dlg').dialog('open').dialog('setTitle', '添加答题');
     $('#fm').form('clear');
     url = '/quiz/save';
@@ -179,6 +208,15 @@ function modQuiz() {
             msg: '请先创建课件！'
         });
         return;
+    }
+    $('#pno').combobox('clear');
+    $('#hdnCourseID').val(courseid);
+    if (!isNaN(gcount) && gcount > 0) {
+        
+        for (var i = 0; i < gcount; i++) {
+            $('#pno').append('<option value="' + i + '">第' + i + '页</option>');
+        }
+        $('#pno').combobox('loadData');
     }
     var row = $('#tab').datagrid('getSelected');
     if (row) {
@@ -199,7 +237,7 @@ function delQuiz() {
     var row = $('#tab').datagrid('getSelected');
     if (row) {
         $.messager.confirm('警告', '是否删除这个答题？', function (r) {
-            $.post('/quiz/delete', { id: row.QuizID }, function (ret) {
+            $.post('/quiz/delete/' + row.QuizID, { id: row.QuizID }, function (ret) {
                 if (ret.error != '') {
                     $.messager.show({
                         title: '删除失败',

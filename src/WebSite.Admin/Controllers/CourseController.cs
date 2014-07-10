@@ -36,16 +36,20 @@ namespace WebSite.Admin.Controllers
         }
 
         // GET: /Course/Edit
-        public ActionResult Edit(int? course_id)
+        public ActionResult Edit(int? id)
         {
             CourseModel model = null;
-            if (course_id.HasValue && course_id.Value > 0)
+            if (id.HasValue && id.Value > 0)
             {
-                model = ServiceFacade.CourseSvc.LoadCourse(course_id.Value);
+                model = ServiceFacade.CourseSvc.LoadCourse(id.Value);
+                if (model != null)
+                {
+                    model.Type = model.Type.Trim();
+                }
             }
             else
             {
-                model = new CourseModel { Cid = -1, CourseName = "新课件" };
+                model = new CourseModel { Cid = -1, CourseName = "新课件", Limit = 60, Type = "ppt文档" };
             }
             return View(model);
         }

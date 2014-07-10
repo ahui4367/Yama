@@ -39,8 +39,8 @@ namespace DbModel.AspnetDb
         
 		private static readonly string SQLFORMAT_UPDATE =
         "UPDATE Quiz_T "
-        		+ "cid = @cid,"
-                + "page = @pageno,"
+         + "SET cid = @cid,"
+                + "pageno = @pageno,"
         		+ "quiz = @quiz,"
         		+ "op1 = @op1,"
         		+ "op2 = @op2,"

@@ -13,11 +13,11 @@ namespace WebSite.Admin.Controllers
         //
         // GET: /Quiz/List
 
-        public ActionResult List(int? course_id)
+        public ActionResult List(int? id)
         {
-            if (course_id.HasValue)
+            if (id.HasValue)
             {
-                var quiz = ServiceFacade.CourseSvc.LoadQuiz(course_id.Value);
+                var quiz = ServiceFacade.CourseSvc.LoadQuiz(id.Value);
 
                 quiz = quiz ?? new List<QuizModel>();
                 return Json(new { total = quiz.Count(), rows = quiz.ToArray() }, JsonRequestBehavior.AllowGet);
@@ -41,18 +41,17 @@ namespace WebSite.Admin.Controllers
             }
         }
 
-        public ActionResult Delete(int quizID)
+        public ActionResult Delete(int id)
         {
             try
             {
-                ServiceFacade.CourseSvc.DelQuiz(new QuizModel { QuizID = quizID });
+                ServiceFacade.CourseSvc.DelQuiz(new QuizModel { QuizID = id });
                 return Json(new { error = "" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = "删除答题失败！" + ex.Message }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { error = "" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

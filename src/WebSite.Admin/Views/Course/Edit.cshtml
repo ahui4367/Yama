@@ -124,14 +124,14 @@
                 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delQuiz()">删除考题</a>
                 </div>
                 <table id="tab" class="easyui-datagrid" style="width:750px; min-height:500px"
-                        iconcls="icon-filter" data-options="singleSelect:true,url:'@Url.Content("~/quiz/list")',method:'get'">
+                        iconcls="icon-filter" data-options="rownumbers:true,singleSelect:true,method:'get'">
                     <thead>
                         <tr>
                             <th field="PageNo" width="60">课件页面</th>
                             <th field="Question" width="300">题干</th>
-                            <th field="QuizType" width="80">题型</th>
+                            <th field="QuizTypeName" width="80">题型</th>
                             <th field="Created" width="150">创建时间</th>
-                            <th field="Lastmodified" width="150">最后修改时间</th>
+                            <th field="LastModified" width="150">最后修改时间</th>
                         </tr>
                     </thead>
                 </table>
@@ -141,14 +141,16 @@
             </div>
             <div data-options="region:'west',split:true,title:'课件信息'," style="width:150px;padding:2px">
                 <form id="fmMain" method="post" novalidate>
-                <input type="hidden" id="hdnMedia" name="Media" value="" />
-                <input type="hidden" id="hdnRank" name="rank" value="" />
+                <input type="hidden" id="hdnCid" name="Cid" value="@Model.Cid" />
+                <input type="hidden" id="hdnMedia" name="Media" value="@Model.Media" />
+                <input type="hidden" id="hdnRank" name="rank" value="@Model.Rank" />
+                <input type="hidden" id="hdnType" name="type" value="@Model.Type" />
                 <label for="cname">课件名称:</label>
-                <input id="cname" name="CourseName" type="text" value="新课件" /><br/><br/>
+                <input id="cname" name="CourseName" type="text" value="@Model.CourseName" /><br/><br/>
                 <label for="climit">限时(秒):</label>
-                <input id="climit" name="Limit" type="text" value="60" /><br/><br/>
+                <input id="climit" name="Limit" type="text" value="@Model.Limit" /><br/><br/>
                 <label for="selType">课件类型:</label>
-                <select id="selType" class="easyui-combobox" name="type">
+                <select id="selType" class="easyui-combobox">
                     <option value="ppt文档">PowerPoint文档</option>
                     <option value="mp4视频">视频(*.mp4)</option>
                 </select><br/>
@@ -163,8 +165,8 @@
         closed="true" buttons="#dlg-buttons">
         <div class="ftitle">答题信息</div>
         <form id="fm" method="post" novalidate>
-            <input type="hidden" name="QuizID" value="-1"/>
-            <input type="hidden" name="CourseID" value="-1"/>
+            <input type="hidden" id="hdnQuizID" name="QuizID" value="-1"/>
+            <input type="hidden" id="hdnCourseID" name="CourseID" value="-1"/>
             <div class="fitem">
                 <label for="qtype">题型:</label>
                 <select name="QuizType" id="qtype" class="easyui-combobox" required="true" style="width:100px">
@@ -174,31 +176,31 @@
             </div><br />
             <div class="fitem">
                 <label for="pno">课件页码:</label>
-                <select name="pageno" id="pno" class="easyui-combobox" required="true" style="width:100px"></select>
+                <select name="PageNo" id="pno" class="easyui-combobox" required="true" style="width:100px"></select>
             </div><br />
             <div class="fitem">
                 <label for="question">题干:</label>
-                <textarea name="question" id="question" class="easyui-validatebox" required="true" rows="4" cols="50"></textarea>
+                <textarea name="Question" id="question" class="easyui-validatebox" required="true" rows="4" cols="50"></textarea>
             </div><br />
             <div class="fitem">
                 <label for="o1">A.</label>
-                <input name="option1" id="o1" class="easyui-validatebox" />
+                <input name="Option1" id="o1" class="easyui-validatebox" />
             </div><br />
             <div class="fitem">
                 <label for="o2">B.</label>
-                <input name="option2" id="o2" class="easyui-validatebox" />
+                <input name="Option2" id="o2" class="easyui-validatebox" />
             </div><br />
             <div class="fitem">
                 <label for="o3">C.</label>
-                <input name="option3" id="o3" class="easyui-validatebox" />
+                <input name="Option3" id="o3" class="easyui-validatebox" />
             </div><br />
             <div class="fitem">
                 <label for="o4">D.</label>
-                <input name="option4" id="o4" class="easyui-validatebox" />
+                <input name="Option4" id="o4" class="easyui-validatebox" />
             </div><br />
             <div class="fitem">
                 <label for="answer">答案:</label>
-                <select name="answer" id="answer" class="easyui-validatebox">
+                <select name="Answer" id="answer" class="easyui-validatebox">
                     <option value="1">A</option>
                     <option value="2">B</option>
                     <option value="3">C</option>

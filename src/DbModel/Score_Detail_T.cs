@@ -1,3 +1,4 @@
+
 namespace DbModel.AspnetDb
 {
 	using System; 
@@ -5,13 +6,17 @@ namespace DbModel.AspnetDb
 	public partial class Score_Detail_T
 	{
         #region Properties
-		public Int32 Sdid  { get; set; }                                        
+		
+public Int32 Sdid  { get; set; }                                        
 				
-		public String Wronglist  { get; set; }                                        
+		
+public String Wronglist  { get; set; }                                        
 				
-		public String Correctlist  { get; set; }                                        
+		
+public String Correctlist  { get; set; }                                        
 				
-		#endregion Properties
+		
+#endregion Properties
 	}
 }
 			

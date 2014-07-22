@@ -44,14 +44,13 @@ namespace WebSite.ShareObject
             var list = ServiceFacade.CourseSvc.LoadQuiz(course_id);
             if (list != null && list.Count() > 0)
             {
-                result = list.OrderBy(d=>d.PageNo).OrderBy(d=>d.Seq).Select(d => new QuestionModel 
+                result = list.OrderBy(d=>d.Seq).Select(d => new QuestionModel 
                 { 
                     QuestionID = d.QuizID,
                     QuestionTitle = d.Question,
                     QuestionAnswer = d.Answer,
                     QuestionOptions = new string[] { d.Option1, d.Option2, d.Option3, d.Option4 },
                     QuestionType = d.QuizType,
-                    PageIndex = d.PageNo,
                 }).ToList();
             }
 

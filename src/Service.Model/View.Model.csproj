@@ -40,15 +40,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CourseModel.cs" />
+    <Compile Include="DocSearchModel.cs" />
+    <Compile Include="DocumentModel.cs" />
     <Compile Include="LoginModel.cs" />
     <Compile Include="OrganModel.cs" />
     <Compile Include="PagingModel.cs" />
     <Compile Include="ProgressModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuizModel.cs" />
+    <Compile Include="QuizSearchModel.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="RoleModel.cs" />
     <Compile Include="UserProfileModel.cs" />
+    <Compile Include="VideoModel.cs" />
+    <Compile Include="VideoSearchModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data.Access.Impl\Data.Access.Impl.csproj">

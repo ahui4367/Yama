@@ -47,10 +47,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AspnetDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Course_Document_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course_Document_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course_Quiz_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course_Quiz_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Course_T.cs">
       <DependentUpon>AspnetDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Course_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course_Video_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course_Video_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Document_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Document_T.extension.cs">
       <DependentUpon>AspnetDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Module_T.cs">
@@ -106,6 +130,12 @@
       <DependentUpon>AspnetDb.tt</DependentUpon>
     </Compile>
     <Compile Include="User_T.extension.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Video_T.cs">
+      <DependentUpon>AspnetDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Video_T.extension.cs">
       <DependentUpon>AspnetDb.tt</DependentUpon>
     </Compile>
   </ItemGroup>

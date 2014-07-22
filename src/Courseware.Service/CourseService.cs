@@ -13,6 +13,8 @@ namespace Courseware.Service
 
         public abstract IEnumerable<QuizModel> LoadQuiz(int course_id);
 
+        public abstract IEnumerable<QuizModel> LoadAllQuiz(QuizSearchModel model);
+
         public abstract CourseModel LoadCourse(int course_id);
 
         public abstract void SaveProgress(int user_id, CourseModel model);

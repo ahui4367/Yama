@@ -40,5 +40,13 @@ namespace Service.Facade
                 return Load<CourseService>();
             }
         }
+
+        public static MediaService MediaSvc
+        {
+            get
+            {
+                return Load<MediaService>();
+            }
+        }
     }
 }

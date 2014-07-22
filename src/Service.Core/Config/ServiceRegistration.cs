@@ -63,8 +63,10 @@ namespace Service.Core.Config
                 Type.GetType("Data.Access.Impl.RepositoryFactoryImpl, Data.Access.Impl"))
 
                 .RegisterTypeAsSingleton(typeof(CourseService),
-                Type.GetType("Courseware.Service.Impl.CourseServiceImpl, Courseware.Service.Impl"));
+                Type.GetType("Courseware.Service.Impl.CourseServiceImpl, Courseware.Service.Impl"))
 
+                .RegisterTypeAsSingleton(typeof(MediaService),
+                Type.GetType("Courseware.Service.Impl.MediaServiceImpl, Courseware.Service.Impl"));
 
             ServiceLocator locator = new UnityLocator(container);
             //注册ServiceLocator到当前上下文中

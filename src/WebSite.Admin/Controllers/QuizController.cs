@@ -10,6 +10,12 @@ namespace WebSite.Admin.Controllers
 {
     public class QuizController : Controller
     {
+
+        public ActionResult Index()
+        {
+
+            return View();
+        }
         //
         // GET: /Quiz/List
 
@@ -24,8 +30,20 @@ namespace WebSite.Admin.Controllers
             }
             else
             {
+
                 return Json(new { total = 0, rows = new QuizModel[] { } }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult Search(QuizSearchModel paging)
+        {
+            var quiz = ServiceFacade.CourseSvc.LoadAllQuiz(paging);
+            if (quiz != null)
+            {
+                return Json(new { total = paging.Total, rows = quiz.ToArray() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { total = 0, rows = new QuizModel[] { } }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Save(QuizModel model)

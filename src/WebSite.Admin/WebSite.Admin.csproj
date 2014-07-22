@@ -164,6 +164,7 @@
     <Compile Include="Controllers\AppConfig.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\OrganController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -672,8 +673,11 @@
     <Content Include="Scripts\views\accountuser.js" />
     <Content Include="Scripts\views\addcourse.js" />
     <Content Include="Scripts\views\course.js" />
+    <Content Include="Scripts\views\doc.js" />
     <Content Include="Scripts\views\homeindex.js" />
     <Content Include="Scripts\views\organization.js" />
+    <Content Include="Scripts\views\quiz.js" />
+    <Content Include="Scripts\views\video.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -709,6 +713,9 @@
     <Content Include="Views\Organ\Index.cshtml" />
     <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
+    <Content Include="Views\Quiz\Index.cshtml" />
+    <Content Include="Views\Media\Video.cshtml" />
+    <Content Include="Views\Media\Doc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

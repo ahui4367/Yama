@@ -10,9 +10,7 @@ namespace View.Model
     {
         public int QuizID { get; set; }
 
-        public int CourseID { get; set; }
-
-        public int PageNo { get; set; }
+        public string Tag { get; set; }
 
         public string Question { get; set; }
 
@@ -31,6 +29,30 @@ namespace View.Model
         public int Seq { get; set; }
 
         public int Answer { get; set; }
+
+        public string DisplayAnswer 
+        { 
+            get 
+            {
+                string result = string.Empty;
+                switch (Answer)
+                {
+                    case 1:
+                        result = "A";
+                        break;
+                    case 2:
+                        result = "B";
+                        break;
+                    case 3:
+                        result = "C";
+                        break;
+                    case 4:
+                        result = "D";
+                        break;
+                }
+                return result;
+            } 
+        }
 
         public string Created { get; set; }
 

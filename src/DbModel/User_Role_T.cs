@@ -1,3 +1,4 @@
+
 namespace DbModel.AspnetDb
 {
 	using System; 
@@ -5,11 +6,14 @@ namespace DbModel.AspnetDb
 	public partial class User_Role_T
 	{
         #region Properties
-		public Int32 Uid  { get; set; }                                        
+		
+public Int32 Uid  { get; set; }                                        
 				
-		public Int32 Rid  { get; set; }                                        
+		
+public Int32 Rid  { get; set; }                                        
 				
-		#endregion Properties
+		
+#endregion Properties
 	}
 }
 			

@@ -34,8 +34,8 @@ namespace Courseware.Service.Impl
                     Category = c.Category,
                     Rank = c.Rank,
                     Media = c.Media,
-                    Created = c.Created.ToString("yyyy-MM-dd"),
-                    Lastmodified = c.Lastmodified.ToString("yyyy-MM-dd"),
+                    Created = c.Created.ToString("yyyy-MM-dd HH:mm:ss"),
+                    Lastmodified = c.Lastmodified.ToString("yyyy-MM-dd HH:mm:ss"),
                 }).ToList();
             }
 
@@ -52,19 +52,81 @@ namespace Courseware.Service.Impl
                     .Select(q => new QuizModel 
                     { 
                         QuizID = q.Qid,
-                        CourseID = q.Cid,
-                        Question = q.Quiz,
+                        Question = q.Question,
                         Option1 = q.Op1,
                         Option2 = q.Op2,
                         Option3 = q.Op3,
                         Option4 = q.Op4,
-                        PageNo = q.Pageno,
                         QuizType = q.Type,
                         QuizTypeName = q.Type == 0 ? "单选" : "简答",
                         Seq = q.Seq,
                         Answer = q.Answer,
+                        Tag = q.Tag,
                         Created = q.Created.ToString("yyyy-MM-dd"),
-                        LastModified = q.Lastmodified.ToString("yyyy-MM-dd"),
+                        LastModified = q.Lastmodified.ToString("yyyy-MM-dd HH:mm:ss"),
+                    })
+                    .ToList();
+            }
+
+            return result;
+        }
+
+        public override IEnumerable<QuizModel> LoadAllQuiz(QuizSearchModel model)
+        {
+            model.ValidateParameters();
+            string condition = string.Empty;
+            IEnumerable<QuizModel> result = new List<QuizModel>();
+            IRepository<Quiz_T> expr = null;
+            using (var repo = DbFactory.Create<Quiz_T>())
+            {
+                expr = repo.GetAll();
+                if (!string.IsNullOrEmpty(model.SearchText))
+                {
+                    switch (model.SearchType)
+                    {
+                        case 1:
+                            expr = expr.GetFiltered(string.Format(" question LIKE '%{0}%'", model.SearchText));
+                            break;
+                        case 2:
+                            expr = expr.GetFiltered(string.Format(" tag LIKE '%{0}%'", model.SearchText));
+                            break;
+                    }
+                }
+                model.Total = expr.Count();
+            }
+
+            using (var repo = DbFactory.Create<Quiz_T>())
+            {
+                expr = repo.GetAll();
+                if (!string.IsNullOrEmpty(model.SearchText))
+                {
+                    switch (model.SearchType)
+                    {
+                        case 1:
+                            expr = expr.GetFiltered(string.Format(" question LIKE '%{0}%'", model.SearchText));
+                            break;
+                        case 2:
+                            expr = expr.GetFiltered(string.Format(" tag LIKE '%{0}%'", model.SearchText));
+                            break;
+                    }
+                }
+                //model.Total = repo.GetFiltered(
+                result = expr.GetPaged<Quiz_T>(model.Page, model.Rows, " LastModified DESC")
+                    .Select(q => new QuizModel 
+                    {
+                        QuizID = q.Qid,
+                        Question = q.Question,
+                        Option1 = q.Op1,
+                        Option2 = q.Op2,
+                        Option3 = q.Op3,
+                        Option4 = q.Op4,
+                        QuizType = q.Type,
+                        QuizTypeName = q.Type == 0 ? "单选" : "简答",
+                        Seq = q.Seq,
+                        Answer = q.Answer,
+                        Tag = q.Tag,
+                        Created = q.Created.ToString("yyyy-MM-dd HH:mm:ss"),
+                        LastModified = q.Lastmodified.ToString("yyyy-MM-dd HH:mm:ss"),
                     })
                     .ToList();
             }
@@ -126,30 +188,28 @@ namespace Courseware.Service.Impl
                     repo.Save(new Quiz_T 
                     {
                         Qid = model.QuizID,
-                        Cid = model.CourseID,
-                        Quiz = model.Question,
-                        Pageno = model.PageNo,
                         Type = model.QuizType,
+                        Question = model.Question,
                         Op1 = model.Option1,
                         Op2 = model.Option2,
                         Op3 = model.Option3,
                         Op4 = model.Option4,
                         Answer = model.Answer,
+                        Tag = model.Tag,
                     });
                 }
                 else
                 {
                     repo.Add(new Quiz_T
                     {
-                        Cid = model.CourseID,
-                        Quiz = model.Question,
-                        Pageno = model.PageNo,
                         Type = model.QuizType,
+                        Question = model.Question,
                         Op1 = model.Option1,
                         Op2 = model.Option2,
                         Op3 = model.Option3,
                         Op4 = model.Option4,
                         Answer = model.Answer,
+                        Tag = model.Tag,
                     });
                 }
             }
@@ -179,8 +239,8 @@ namespace Courseware.Service.Impl
                         Media = item.Media,
                         Type = item.Type,
                         Rank = item.Rank,
-                        Created = item.Created.ToString("yyyy-MM-dd"),
-                        Lastmodified = item.Lastmodified.ToString("yyyy-MM-dd")
+                        Created = item.Created.ToString("yyyy-MM-dd HH:mm:ss"),
+                        Lastmodified = item.Lastmodified.ToString("yyyy-MM-dd HH:mm:ss")
                     };
                 }
                 else

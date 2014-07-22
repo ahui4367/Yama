@@ -73,54 +73,5 @@ namespace WebSite.Admin.Controllers
             }
         }
 
-        public ActionResult Uploady(HttpPostedFileBase file)
-        {
-            if (file == null || string.IsNullOrEmpty(file.FileName) || file.ContentLength < 1)
-            {
-                return this.HttpNotFound();
-            }
-            try
-            {
-                Guid key = Guid.NewGuid();
-                FileInfo fi = new FileInfo(file.FileName);
-                var newfile = key.ToString() + fi.Extension;
-                file.SaveAs(Path.Combine(AppConfig.UploadRoot, newfile));
-
-                return Json(new { error = "", file =  newfile}, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public ActionResult Converty(string file)
-        {
-            int mediatype = 0;
-            string fullPath = Path.Combine(AppConfig.UploadRoot, file);
-            FileInfo fi = new FileInfo(fullPath);
-            List<string> output = new List<string>();
-            if (fi.Exists)
-            {
-                if (".ppt".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
-                {
-                    output = PptConverter.PPT(fi.FullName, ImageFormat.Jpeg);
-                }
-                else if (".pptx".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
-                {
-                    output = PptConverter.PPTX(fi.FullName, ImageFormat.Jpeg, 0);
-                }
-                else if (".mp4".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
-                {
-                    VideoConverter.Convert(fi.FullName);
-                    mediatype = 1;
-                }
-                return Json(new { error = "", type = mediatype, count = output.Count }, JsonRequestBehavior.AllowGet);
-            }
-            else 
-            {
-                return Json(new { error = "未找到源文件!" }, JsonRequestBehavior.AllowGet);
-            }
-        }
     }
 }

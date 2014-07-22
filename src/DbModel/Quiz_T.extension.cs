@@ -10,46 +10,45 @@ namespace DbModel.AspnetDb
         
         private static readonly string SQLFORMAT_INSERT = 
         "INSERT INTO Quiz_T("
-        		+ "cid,"
-                + "pageno,"
-        		+ "quiz,"
+        		+ "question,"
         		+ "op1,"
         		+ "op2,"
         		+ "op3,"
         		+ "op4,"
         		+ "type,"
                 + "seq,"
+                + "tag,"
         		+ "created,"
         		+ "lastmodified,"
         		+ "active)"
         + " Values("
-        		+ "@cid,"
-                + "@pageno,"
-        		+ "@quiz,"
+        		+ "@question,"
         		+ "@op1,"
         		+ "@op2,"
         		+ "@op3,"
         		+ "@op4,"
         		+ "@type,"
                 + "@seq,"
+                + "@tag,"
         		+ "GETDATE(),"
         		+ "GETDATE(),"
-        		+ "@active)";
+        		+ "1)";
         
         
 		private static readonly string SQLFORMAT_UPDATE =
         "UPDATE Quiz_T "
-         + "SET cid = @cid,"
-                + "pageno = @pageno,"
-        		+ "quiz = @quiz,"
+         + "SET "
+        		+ "question = @question,"
         		+ "op1 = @op1,"
         		+ "op2 = @op2,"
         		+ "op3 = @op3,"
         		+ "op4 = @op4,"
         		+ "type = @type,"
                 + "seq = @seq,"
+                + "answer = @answer,"
+                + "tag = @tag,"
         		+ "lastmodified = GETDATE(),"
-        		+ "active = @active"
+        		+ "active = 1"
         + " WHERE qid = @qid";
         
         private static readonly string SQLFORMAT_DELETE =
@@ -73,15 +72,15 @@ namespace DbModel.AspnetDb
 
             return context.Sql(sql)
 					.Parameter("qid", Qid)
-					.Parameter("cid", Cid)
-                    .Parameter("pageno", Pageno)
-					.Parameter("quiz", Quiz)
+					.Parameter("question", Question)
 					.Parameter("op1", Op1)
 					.Parameter("op2", Op2)
 					.Parameter("op3", Op3)
 					.Parameter("op4", Op4)
 					.Parameter("type", Type)
                     .Parameter("seq", Seq)
+                    .Parameter("tag", Tag)
+                    .Parameter("answer", Answer)
 					.Parameter("active", Active);
         }
 

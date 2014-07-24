@@ -138,34 +138,40 @@ namespace WebSite.Admin.Controllers
             }
         }
 
-        public ActionResult DSave(string file, string origin, string cmt)
+        public ActionResult DSave(int? id, string file, string origin, string cmt)
         {
             DocumentModel viModel = new DocumentModel
             {
+                DocID = id.HasValue ? id.Value : -1,
                 DocName = origin,
                 Comment = cmt,
                 Media = file,
             };
+
             int mediatype = 0;
             string fullPath = Path.Combine(AppConfig.UploadRoot, file);
             FileInfo fi = new FileInfo(fullPath);
             List<string> output = new List<string>();
             if (fi.Exists)
             {
-                if (".ppt".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
+                if (viModel.DocID < 1)
                 {
-                    output = PptConverter.PPT(fi.FullName, ImageFormat.Jpeg);
-                }
-                else if (".pptx".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
-                {
-                    output = PptConverter.PPTX(fi.FullName, ImageFormat.Jpeg, 0);
-                }
-                else if (".mp4".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
-                {
-                    VideoConverter.Convert(fi.FullName);
-                    mediatype = 1;
+                    if (".ppt".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
+                    {
+                        output = PptConverter.PPT(fi.FullName, ImageFormat.Jpeg);
+                    }
+                    else if (".pptx".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
+                    {
+                        output = PptConverter.PPTX(fi.FullName, ImageFormat.Jpeg, 0);
+                    }
+                    else if (".mp4".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase))
+                    {
+                        VideoConverter.Convert(fi.FullName);
+                        mediatype = 1;
+                    }
                 }
 
+                viModel.Count = output.Count;
                 ServiceFacade.MediaSvc.SaveDoc(viModel);
                 return Json(new { error = "", type = mediatype, count = output.Count }, JsonRequestBehavior.AllowGet);
             }

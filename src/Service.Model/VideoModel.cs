@@ -15,7 +15,7 @@ namespace View.Model
         public string Comment { get; set; }
 
         public string Media { get; set; }
-
+        
         public string Created { get; set; }
 
         public string LastModified { get; set; }

@@ -123,6 +123,7 @@ namespace Courseware.Service.Impl
                         DocName = q.Dname,
                         Comment = q.Comment,
                         Media = q.Media,
+                        Count = q.Count,
                         Created = q.Created.ToString("yyyy-MM-dd HH:mm:ss"),
                         LastModified = q.Lastmodified.ToString("yyyy-MM-dd HH:mm:ss"),
                     })
@@ -170,6 +171,7 @@ namespace Courseware.Service.Impl
                         Dname = model.DocName,
                         Media = model.Media,
                         Comment = model.Comment,
+                        Count = model.Count,
                     });
                 }
                 else
@@ -180,6 +182,7 @@ namespace Courseware.Service.Impl
                         Dname = model.DocName,
                         Media = model.Media,
                         Comment = model.Comment,
+                        Count = model.Count,
                     });
                 }
             }

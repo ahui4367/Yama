@@ -16,6 +16,8 @@ namespace View.Model
 
         public string Media { get; set; }
 
+        public int Count { get; set; }
+
         public string Created { get; set; }
 
         public string LastModified { get; set; }

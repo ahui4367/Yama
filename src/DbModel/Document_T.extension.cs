@@ -16,7 +16,7 @@ namespace DbModel.AspnetDb
         		+ "comment,"
 
         		+ "media,"
-
+                + "count,"
         		+ "created,"
 
         		+ "lastmodified)"
@@ -28,7 +28,7 @@ namespace DbModel.AspnetDb
         		+ "@comment,"
 
         		+ "@media,"
-
+                + "@count,"
         		+ "getdate(),"
 
         		+ "getdate())";
@@ -38,14 +38,8 @@ namespace DbModel.AspnetDb
         
 		private static readonly string SQLFORMAT_UPDATE =
         "UPDATE Document_T "
-        		+ "SET dname = @dname,"
-
-        		+ "comment = @comment,"
-
-        		+ "media = @media,"
-
-        		+ "lastmodified = getdate()"
-        
+         + "SET comment = @comment,"
+        	 + "lastmodified = getdate()"
         + " WHERE did = @did";
         
         private static readonly string SQLFORMAT_DELETE =
@@ -71,6 +65,7 @@ namespace DbModel.AspnetDb
 					.Parameter("did", Did)
 					.Parameter("dname", Dname)
 					.Parameter("comment", Comment)
+                    .Parameter("count", Count)
 					.Parameter("media", Media);
 
         }

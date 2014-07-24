@@ -19,6 +19,9 @@ public String Comment  { get; set; }
 public String Media  { get; set; }                                        
 				
 		
+public Int32 Count  { get; set; }                                        
+				
+		
 public DateTime Created  { get; set; }                                        
 				
 		
